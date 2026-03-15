@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const API = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
 
   const fetchMovies = async () => {
     try {
-      const { data } = await axios.get('/api/movies');
+      const { data } = await axios.get(`${API}/api/movies`);
       // API returns { movies, page, pages } - extract the movies array
       setMovies(Array.isArray(data) ? data : (data.movies || []));
       setLoading(false);
@@ -68,10 +69,10 @@ const AdminDashboard = () => {
 
     try {
       if (isEditing) {
-        await axios.put(`/api/movies/${editId}`, submissionData, config);
+        await axios.put(`${API}/api/movies/${editId}`, submissionData, config);
         setMessage('Movie updated successfully');
       } else {
-        await axios.post('/api/movies', submissionData, config);
+        await axios.post(`${API}/api/movies`, submissionData, config);
         setMessage('Movie created successfully');
       }
       
@@ -107,7 +108,7 @@ const AdminDashboard = () => {
     if (window.confirm('Are you sure you want to delete this movie?')) {
       try {
         const token = JSON.parse(localStorage.getItem('userInfo')).token;
-        await axios.delete(`/api/movies/${id}`, {
+        await axios.delete(`${API}/api/movies/${id}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         fetchMovies();

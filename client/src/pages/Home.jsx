@@ -5,6 +5,7 @@ import { FaPlay, FaInfoCircle, FaChevronDown } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const API = import.meta.env.VITE_API_URL || '';
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const { data } = await axios.get('/api/movies/genres');
+        const { data } = await axios.get(`${API}/api/movies/genres`);
         setGenres(data);
       } catch (err) {
         console.error('Failed to fetch genres', err);
@@ -47,7 +48,7 @@ const Home = () => {
         const pg = Number(params.get('pageNumber')) || 1;
 
         const { data } = await axios.get(
-          `/api/movies?keyword=${encodeURIComponent(kw)}&genre=${encodeURIComponent(g)}&pageNumber=${pg}`
+          `${API}/api/movies?keyword=${encodeURIComponent(kw)}&genre=${encodeURIComponent(g)}&pageNumber=${pg}`
         );
 
         if (Array.isArray(data)) {
@@ -105,7 +106,7 @@ const Home = () => {
         <div className="relative h-[80vh] w-full">
           <div className="absolute inset-0">
              <img 
-              src={heroMovie.poster && heroMovie.poster.startsWith('http') ? heroMovie.poster : `http://localhost:5000${heroMovie.poster}`} 
+              src={heroMovie.poster && heroMovie.poster.startsWith('http') ? heroMovie.poster : `${API}${heroMovie.poster}`} 
               alt={heroMovie.title}
               className="w-full h-full object-cover"
              />

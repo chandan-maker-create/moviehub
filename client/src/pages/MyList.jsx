@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const MyList = () => {
+  const API = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [watchlist, setWatchlist] = useState([]);
@@ -19,7 +20,7 @@ const MyList = () => {
     const fetchWatchlist = async () => {
       try {
         const token = JSON.parse(localStorage.getItem('userInfo')).token;
-        const { data } = await axios.get('/api/users/watchlist', {
+        const { data } = await axios.get(`${API}/api/users/watchlist`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setWatchlist(data);

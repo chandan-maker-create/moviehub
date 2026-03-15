@@ -5,12 +5,13 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const MovieCard = ({ movie }) => {
+  const API = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const [inWatchlist, setInWatchlist] = useState(false);
   const [watchlistLoading, setWatchlistLoading] = useState(false);
 
   const posterUrl = movie.poster 
-    ? (movie.poster.startsWith('http') ? movie.poster : `http://localhost:5000${movie.poster}`)
+    ? (movie.poster.startsWith('http') ? movie.poster : `${API}${movie.poster}`)
     : null;
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const MovieCard = ({ movie }) => {
       const checkWatchlist = async () => {
         try {
           const token = JSON.parse(localStorage.getItem('userInfo')).token;
-          const { data } = await axios.get('/api/users/watchlist', {
+          const { data } = await axios.get(`${API}/api/users/watchlist`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setInWatchlist(data.some(m => m._id === movie._id));
@@ -39,10 +40,10 @@ const MovieCard = ({ movie }) => {
       const config = { headers: { Authorization: `Bearer ${token}` } };
       
       if (inWatchlist) {
-        await axios.delete(`/api/users/watchlist/${movie._id}`, config);
+        await axios.delete(`${API}/api/users/watchlist/${movie._id}`, config);
         setInWatchlist(false);
       } else {
-        await axios.post(`/api/users/watchlist/${movie._id}`, {}, config);
+        await axios.post(`${API}/api/users/watchlist/${movie._id}`, {}, config);
         setInWatchlist(true);
       }
     } catch (error) {

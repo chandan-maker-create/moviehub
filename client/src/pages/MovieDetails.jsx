@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 const MovieDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const API = import.meta.env.VITE_API_URL || '';
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,13 +39,13 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovieAndWatchlist = async () => {
       try {
-        const { data } = await axios.get(`/api/movies/${id}`);
+        const { data } = await axios.get(`${API}/api/movies/${id}`);
         setMovie(data);
         
         // If user is logged in, check if movie is in watchlist
         if (user) {
           const token = JSON.parse(localStorage.getItem('userInfo')).token;
-          const { data: watchlist } = await axios.get('/api/users/watchlist', {
+          const { data: watchlist } = await axios.get(`${API}/api/users/watchlist`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setInWatchlist(watchlist.some(m => m._id === id));
@@ -67,10 +68,10 @@ const MovieDetails = () => {
       const config = { headers: { Authorization: `Bearer ${token}` } };
       
       if (inWatchlist) {
-        await axios.delete(`/api/users/watchlist/${id}`, config);
+        await axios.delete(`${API}/api/users/watchlist/${id}`, config);
         setInWatchlist(false);
       } else {
-        await axios.post(`/api/users/watchlist/${id}`, {}, config);
+        await axios.post(`${API}/api/users/watchlist/${id}`, {}, config);
         setInWatchlist(true);
       }
     } catch (error) {
@@ -90,13 +91,13 @@ const MovieDetails = () => {
       const token = JSON.parse(localStorage.getItem('userInfo')).token;
       const config = { headers: { Authorization: `Bearer ${token}` } };
       
-      await axios.post(`/api/movies/${id}/reviews`, { rating, comment }, config);
+      await axios.post(`${API}/api/movies/${id}/reviews`, { rating, comment }, config);
       setReviewSuccess('Review submitted successfully!');
       setRating(0);
       setComment('');
       
       // Refresh movie data to show new review
-      const { data } = await axios.get(`/api/movies/${id}`);
+      const { data } = await axios.get(`${API}/api/movies/${id}`);
       setMovie(data);
     } catch (error) {
       setReviewError(error.response?.data?.message || 'Failed to submit review');
@@ -110,10 +111,10 @@ const MovieDetails = () => {
       const token = JSON.parse(localStorage.getItem('userInfo')).token;
       const config = { headers: { Authorization: `Bearer ${token}` } };
       
-      await axios.delete(`/api/movies/${id}/reviews/${reviewId}`, config);
+      await axios.delete(`${API}/api/movies/${id}/reviews/${reviewId}`, config);
       
       // Refresh movie data to show updated reviews
-      const { data } = await axios.get(`/api/movies/${id}`);
+      const { data } = await axios.get(`${API}/api/movies/${id}`);
       setMovie(data);
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to delete review');
@@ -128,7 +129,7 @@ const MovieDetails = () => {
       {/* Detail Hero Background */}
       <div className="relative h-[60vh] w-full">
         <img 
-          src={movie.poster ? (movie.poster.startsWith('http') ? movie.poster : `http://localhost:5000${movie.poster}`) : 'https://via.placeholder.com/1200x800'} 
+          src={movie.poster ? (movie.poster.startsWith('http') ? movie.poster : `${API}${movie.poster}`) : 'https://via.placeholder.com/1200x800'} 
           alt={movie.title} 
           className="w-full h-full object-cover opacity-50 block"
         />
@@ -142,7 +143,7 @@ const MovieDetails = () => {
           <div className="w-full md:w-1/3 lg:w-1/4 shrink-0 mx-auto md:mx-0 animate-slide-up">
             <div className="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/5 ring-1 ring-white/10 group relative">
               <img 
-                src={movie.poster ? (movie.poster.startsWith('http') ? movie.poster : `http://localhost:5000${movie.poster}`) : 'https://via.placeholder.com/400x600'} 
+                src={movie.poster ? (movie.poster.startsWith('http') ? movie.poster : `${API}${movie.poster}`) : 'https://via.placeholder.com/400x600'} 
                 alt={movie.title} 
                 className="w-full h-auto object-cover block transition-transform duration-700 group-hover:scale-105"
               />
