@@ -116,20 +116,20 @@ const Home = () => {
           
           <div className="relative h-full flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl pt-24">
-              <h1 className="text-6xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 mb-4 line-clamp-2 drop-shadow-xl animate-slide-up">{heroMovie.title}</h1>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 mb-4 line-clamp-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] animate-slide-up tracking-tight">{heroMovie.title}</h1>
               <div className="flex items-center gap-4 text-sm text-gray-300 mb-6 font-semibold animate-slide-up" style={{animationDelay: '0.1s'}}>
-                <span className="text-green-400 bg-green-400/10 px-2 py-0.5 rounded">{heroMovie.rating} Rating</span>
-                <span>{heroMovie.year}</span>
-                <span className="border border-gray-600 px-3 py-1 rounded-full bg-black/40 backdrop-blur-sm">{heroMovie.genre}</span>
+                <span className="text-green-400 bg-green-400/10 px-3 py-1 rounded-md border border-green-500/20 shadow-[0_0_10px_rgba(74,222,128,0.2)]">{heroMovie.rating} Rating</span>
+                <span className="text-lg">{heroMovie.year}</span>
+                <span className="border border-white/20 px-4 py-1 rounded-full bg-white/5 backdrop-blur-md shadow-[0_4px_10px_rgba(0,0,0,0.3)]">{heroMovie.genre}</span>
               </div>
               <p className="text-lg text-gray-300 mb-8 line-clamp-3 md:line-clamp-4 animate-slide-up" style={{animationDelay: '0.2s', maxWidth: '600px'}}>
                 {heroMovie.description}
               </p>
               <div className="flex gap-4 animate-slide-up" style={{animationDelay: '0.3s'}}>
-                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-8 py-3.5 rounded-full transition-all duration-300 transform hover:scale-105 font-bold shadow-[0_0_20px_rgba(229,9,20,0.4)] hover:shadow-[0_0_30px_rgba(229,9,20,0.6)]">
+                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-8 py-3.5 rounded-full transition-all duration-300 transform hover:scale-105 font-bold shadow-[0_0_20px_rgba(255,11,24,0.4)] hover:shadow-[0_0_30px_rgba(255,11,24,0.7)] animate-pulse-slow">
                   <FaPlay /> Play Now
                 </Link>
-                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 glass hover:bg-white/10 text-white px-8 py-3.5 rounded-full transition-all duration-300 font-bold border border-white/20">
+                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 glass hover:bg-white/20 text-white px-8 py-3.5 rounded-full transition-all duration-300 font-bold border border-white/20 hover:border-white/40 hover:animate-glow">
                   <FaInfoCircle /> More Info
                 </Link>
               </div>

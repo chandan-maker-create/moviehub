@@ -67,24 +67,24 @@ const MovieCard = ({ movie }) => {
       )}
       
       {/* Overlay Details */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-        <h3 className="text-white font-bold text-lg leading-tight mb-2 truncate">{movie.title}</h3>
-        <div className="flex items-center gap-2 text-xs text-gray-300 mb-3">
-          <span className="text-green-500 font-semibold">{movie.rating} Rating</span>
-          <span>•</span>
-          <span>{movie.year}</span>
-          <span>•</span>
-          <span className="truncate">{movie.genre}</span>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-duration-400 ease-in-out flex flex-col justify-end p-5">
+        <h3 className="text-white font-extrabold text-xl leading-tight mb-2 drop-shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{movie.title}</h3>
+        <div className="flex items-center gap-2 text-xs text-gray-300 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+          <span className="text-green-400 font-bold bg-green-400/10 px-1.5 py-0.5 rounded">{movie.rating}</span>
+          <span className="opacity-50">•</span>
+          <span className="font-medium text-gray-300">{movie.year}</span>
+          <span className="opacity-50">•</span>
+          <span className="truncate border border-white/20 px-2 py-0.5 rounded-full bg-white/5">{movie.genre}</span>
         </div>
-        <div className="flex gap-2 items-center">
-          <div className="bg-white text-black p-2 rounded-full hover:bg-gray-300 transition w-8 flex items-center justify-center">
-            <FaPlay className="pl-0.5" />
+        <div className="flex gap-3 items-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+          <div className="bg-primary text-white p-3 rounded-full hover:bg-primary-hover transition shadow-[0_0_15px_rgba(255,11,24,0.5)] flex items-center justify-center hover:scale-110">
+            <FaPlay className="pl-0.5 text-sm" />
           </div>
           {user && (
             <button 
               onClick={toggleWatchlist}
               disabled={watchlistLoading}
-              className="bg-transparent border border-gray-400 text-white p-2 text-sm rounded-full hover:border-white transition flex items-center justify-center"
+              className="bg-dark-300/80 border border-white/20 text-white p-3 text-sm rounded-full hover:border-white hover:bg-white/10 transition flex items-center justify-center hover:scale-110"
               title={inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
             >
               {watchlistLoading ? '...' : inWatchlist ? <FaCheck className="text-green-500" /> : <FaPlus />}

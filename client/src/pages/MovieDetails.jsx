@@ -131,7 +131,7 @@ const MovieDetails = () => {
         <img 
           src={movie.poster ? (movie.poster.startsWith('http') ? movie.poster : `${API}${movie.poster}`) : 'https://via.placeholder.com/1200x800'} 
           alt={movie.title} 
-          className="w-full h-full object-cover opacity-50 block"
+          className="w-full h-full object-cover opacity-40 blur-sm block"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-100 via-dark-100/60 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-dark-100 via-dark-100/80 to-transparent"></div>
@@ -153,14 +153,14 @@ const MovieDetails = () => {
 
           {/* Details Content */}
           <div className="flex-1 text-white pt-4 md:pt-16 animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-lg">{movie.title}</h1>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] tracking-tight">{movie.title}</h1>
             
             <div className="flex flex-wrap items-center gap-4 text-gray-300 mb-8 text-sm font-semibold">
-              <span className="flex items-center gap-1.5 text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full text-base">
+              <span className="flex items-center gap-1.5 text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-md border border-yellow-500/20 shadow-[0_0_10px_rgba(250,204,21,0.2)] text-base">
                 <FaStar /> {movie.rating}
               </span>
-              <span>{movie.year}</span>
-              <span className="px-4 py-1.5 bg-dark-200/80 backdrop-blur-sm rounded-full text-xs tracking-widest uppercase border border-white/10 shadow-sm">{movie.genre}</span>
+              <span className="text-lg">{movie.year}</span>
+              <span className="px-4 py-1.5 bg-white/5 backdrop-blur-md rounded-full text-xs tracking-widest uppercase border border-white/20 shadow-[0_4px_10px_rgba(0,0,0,0.3)]">{movie.genre}</span>
             </div>
 
             <p className="text-gray-300 text-lg leading-relaxed mb-10 max-w-3xl">
@@ -171,7 +171,7 @@ const MovieDetails = () => {
               {movie.trailer ? (
                 <button 
                   onClick={() => setShowTrailer(true)} 
-                  className="flex items-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full hover:bg-primary-hover hover:shadow-[0_0_20px_rgba(229,9,20,0.4)] transition-all duration-300 transform hover:scale-105 font-bold"
+                  className="flex items-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full hover:bg-primary-hover shadow-[0_0_20px_rgba(255,11,24,0.4)] hover:shadow-[0_0_30px_rgba(255,11,24,0.7)] transition-all duration-300 transform hover:scale-105 font-bold animate-pulse-slow"
                 >
                    <FaPlay /> Watch Trailer
                 </button>
@@ -195,7 +195,7 @@ const MovieDetails = () => {
                 <button 
                   onClick={toggleWatchlist} 
                   disabled={watchlistLoading}
-                  className={`flex items-center gap-2 border px-8 py-3.5 rounded-full transition-all duration-300 font-bold shadow-lg md:ml-auto ${inWatchlist ? 'bg-white/10 border-white/30 text-white' : 'glass hover:bg-white/10 border-white/20 text-white'}`}
+                  className={`flex items-center gap-2 border px-8 py-3.5 rounded-full transition-all duration-300 font-bold shadow-lg md:ml-auto hover:animate-glow ${inWatchlist ? 'bg-white/10 border-white/30 text-white' : 'glass hover:bg-white/10 border-white/20 text-white hover:border-white/40'}`}
                 >
                   {watchlistLoading ? '...' : inWatchlist ? <><FaCheck className="text-green-500" /> In Watchlist</> : <><FaPlus /> Add to List</>}
                 </button>
