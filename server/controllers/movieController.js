@@ -20,13 +20,13 @@ export const getMovies = async (req, res) => {
     const pageSize = 12; // Movies per page
     const page = Number(req.query.pageNumber) || 1;
 
-    // Search by title
+    // Search by title or genre
     const keyword = req.query.keyword
       ? {
-          title: {
-            $regex: req.query.keyword,
-            $options: 'i',
-          },
+          $or: [
+            { title: { $regex: req.query.keyword, $options: 'i' } },
+            { genre: { $regex: req.query.keyword, $options: 'i' } }
+          ]
         }
       : {};
 

@@ -41,16 +41,17 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <form onSubmit={submitHandler} className="relative group hidden sm:block">
+            <form onSubmit={submitHandler} className="relative flex items-center">
                <input 
                  type="text"
                  name="q"
+                 value={keyword}
                  onChange={(e) => setKeyword(e.target.value)}
-                 placeholder="Titles, people, genres"
-                 className="bg-black/80 border border-gray-600 text-white text-sm focus:outline-none focus:border-white w-0 focus:w-64 transition-all duration-300 py-1 pl-8 pr-2 absolute right-0 top-1/2 -translate-y-1/2 opactity-0 group-hover:opacity-100 group-hover:w-64 z-10"
+                 placeholder="Search titles, genres..."
+                 className="bg-dark-300/50 border border-gray-600/50 text-white text-sm rounded-full focus:outline-none focus:border-primary focus:bg-black/80 w-36 sm:w-64 transition-all duration-300 py-1.5 pl-10 pr-4"
                />
-               <button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2 p-2 z-20">
-                 <FaSearch className="text-gray-300 hover:text-white transition cursor-pointer" />
+               <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 z-20">
+                 <FaSearch className="text-gray-400 hover:text-white transition cursor-pointer" />
                </button>
             </form>
             {user ? (

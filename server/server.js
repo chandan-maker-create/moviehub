@@ -3,12 +3,15 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-
 import authRoutes from './routes/authRoutes.js';
 import movieRoutes from './routes/movieRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,5 +32,5 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/moviehub')
   .catch((err) => console.log('MongoDB connection error:', err));
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
