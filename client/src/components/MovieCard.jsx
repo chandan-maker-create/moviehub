@@ -53,12 +53,12 @@ const MovieCard = ({ movie }) => {
   };
 
   return (
-    <Link to={`/movie/${movie._id}`} className="group relative rounded-xl overflow-hidden cursor-pointer hover-lift bg-dark-200 aspect-[2/3] block border border-white/5 shadow-lg">
+    <Link to={`/movie/${movie._id}`} className="group relative rounded-2xl overflow-hidden cursor-pointer hover-lift bg-dark-200 aspect-[2/3] block border border-white/10 shadow-lg">
       {posterUrl ? (
         <img 
           src={posterUrl} 
           alt={movie.title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:opacity-60"
+          className="w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:opacity-80"
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center bg-dark-300 text-gray-500 text-center p-4">
@@ -66,31 +66,34 @@ const MovieCard = ({ movie }) => {
         </div>
       )}
       
-      {/* Overlay Details */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-duration-400 ease-in-out flex flex-col justify-end p-5">
-        <h3 className="text-white font-extrabold text-xl leading-tight mb-2 drop-shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{movie.title}</h3>
-        <div className="flex items-center gap-2 text-xs text-gray-300 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-          <span className="text-green-400 font-bold bg-green-400/10 px-1.5 py-0.5 rounded">{movie.rating}</span>
-          <span className="opacity-50">•</span>
-          <span className="font-medium text-gray-300">{movie.year}</span>
-          <span className="opacity-50">•</span>
-          <span className="truncate border border-white/20 px-2 py-0.5 rounded-full bg-white/5">{movie.genre}</span>
-        </div>
-        <div className="flex gap-3 items-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
-          <div className="bg-primary text-white p-3 rounded-full hover:bg-primary-hover transition shadow-[0_0_15px_rgba(255,11,24,0.5)] flex items-center justify-center hover:scale-110">
-            <FaPlay className="pl-0.5 text-sm" />
+      {/* Center Play Button Overlay */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none">
+          <div className="bg-white/20 backdrop-blur-md border border-white/40 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,11,24,0.3)] transform scale-75 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <FaPlay className="pl-1 text-2xl" />
           </div>
-          {user && (
+      </div>
+      
+      {/* Overlay Details Panel - Sliding up */}
+      <div className="absolute inset-x-0 bottom-0 glass-panel translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-end p-5 z-20">
+        <h3 className="text-white font-extrabold text-lg leading-tight mb-2 drop-shadow-md truncate">{movie.title}</h3>
+        <div className="flex items-center gap-2 text-xs text-gray-300 mb-2">
+          <span className="text-green-400 font-bold bg-green-400/20 px-2 py-0.5 rounded border border-green-500/30">{movie.rating}</span>
+          <span className="opacity-50">•</span>
+          <span className="font-semibold text-gray-200">{movie.year}</span>
+          <span className="opacity-50">•</span>
+          <span className="truncate border border-white/20 px-2 py-0.5 rounded-full bg-black/40 text-gray-300 shadow-inner">{movie.genre}</span>
+        </div>
+        
+        {user && (
             <button 
               onClick={toggleWatchlist}
               disabled={watchlistLoading}
-              className="bg-dark-300/80 border border-white/20 text-white p-3 text-sm rounded-full hover:border-white hover:bg-white/10 transition flex items-center justify-center hover:scale-110"
+              className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm border border-white/20 text-white p-2 text-sm rounded-full hover:border-white hover:bg-white/20 transition-all flex items-center justify-center hover:scale-110 z-30 pointer-events-auto shadow-xl"
               title={inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
             >
               {watchlistLoading ? '...' : inWatchlist ? <FaCheck className="text-green-500" /> : <FaPlus />}
             </button>
-          )}
-        </div>
+        )}
       </div>
     </Link>
   );

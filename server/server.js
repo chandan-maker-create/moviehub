@@ -9,10 +9,6 @@ import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 

@@ -108,29 +108,32 @@ const Home = () => {
              <img 
               src={heroMovie.poster && heroMovie.poster.startsWith('http') ? heroMovie.poster : `${API}${heroMovie.poster}`} 
               alt={heroMovie.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover animate-scale-slow"
              />
-             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
-             <div className="absolute inset-0 bg-gradient-to-t from-dark-100 via-transparent to-transparent"></div>
+             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent"></div>
           </div>
           
           <div className="relative h-full flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl pt-24">
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 mb-4 line-clamp-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] animate-slide-up tracking-tight">{heroMovie.title}</h1>
-              <div className="flex items-center gap-4 text-sm text-gray-300 mb-6 font-semibold animate-slide-up" style={{animationDelay: '0.1s'}}>
-                <span className="text-green-400 bg-green-400/10 px-3 py-1 rounded-md border border-green-500/20 shadow-[0_0_10px_rgba(74,222,128,0.2)]">{heroMovie.rating} Rating</span>
-                <span className="text-lg">{heroMovie.year}</span>
-                <span className="border border-white/20 px-4 py-1 rounded-full bg-white/5 backdrop-blur-md shadow-[0_4px_10px_rgba(0,0,0,0.3)]">{heroMovie.genre}</span>
+            <div className="max-w-3xl pt-24 z-10 relative">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400 mb-6 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] animate-slide-up tracking-tight leading-[1.1]">{heroMovie.title}</h1>
+              
+              <div className="flex items-center gap-4 text-sm text-gray-300 mb-8 font-semibold animate-slide-up" style={{animationDelay: '0.1s'}}>
+                <span className="text-green-400 bg-green-400/10 px-3 py-1.5 rounded-md border border-green-500/30 backdrop-blur-sm shadow-[0_0_15px_rgba(74,222,128,0.15)]">{heroMovie.rating} Rating</span>
+                <span className="text-lg font-medium">{heroMovie.year}</span>
+                <span className="border border-white/20 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md shadow-lg text-white">{heroMovie.genre}</span>
               </div>
-              <p className="text-lg text-gray-300 mb-8 line-clamp-3 md:line-clamp-4 animate-slide-up" style={{animationDelay: '0.2s', maxWidth: '600px'}}>
+              
+              <p className="text-lg md:text-xl text-gray-300/90 mb-10 line-clamp-3 md:line-clamp-4 animate-slide-up font-light leading-relaxed max-w-2xl" style={{animationDelay: '0.2s'}}>
                 {heroMovie.description}
               </p>
-              <div className="flex gap-4 animate-slide-up" style={{animationDelay: '0.3s'}}>
-                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-8 py-3.5 rounded-full transition-all duration-300 transform hover:scale-105 font-bold shadow-[0_0_20px_rgba(255,11,24,0.4)] hover:shadow-[0_0_30px_rgba(255,11,24,0.7)] animate-pulse-slow">
-                  <FaPlay /> Play Now
+              
+              <div className="flex flex-wrap gap-5 animate-slide-up" style={{animationDelay: '0.3s'}}>
+                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-3 bg-white hover:bg-gray-200 text-black px-10 py-4 rounded-full transition-all duration-300 transform hover:scale-105 font-bold shadow-[0_10px_30px_rgba(255,255,255,0.3)]">
+                  <FaPlay className="text-xl" /> Play Now
                 </Link>
-                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-2 glass hover:bg-white/20 text-white px-8 py-3.5 rounded-full transition-all duration-300 font-bold border border-white/20 hover:border-white/40 hover:animate-glow">
-                  <FaInfoCircle /> More Info
+                <Link to={`/movie/${heroMovie._id}`} className="flex items-center gap-3 bg-white/10 backdrop-blur-lg hover:bg-white/20 text-white px-10 py-4 rounded-full transition-all duration-300 font-bold border border-white/20 shadow-lg hover:shadow-2xl">
+                  <FaInfoCircle className="text-xl" /> More Info
                 </Link>
               </div>
             </div>
@@ -158,14 +161,14 @@ const Home = () => {
               <div className="relative w-full sm:w-56" ref={dropdownRef}>
                 <button 
                   onClick={() => setIsDropdownOpen(prev => !prev)}
-                  className="w-full glass-card hover:bg-white/5 text-white border border-gray-600/50 rounded-lg p-3 focus:outline-none focus:border-primary transition-all duration-300 flex justify-between items-center shadow-lg group"
+                  className="w-full bg-white/5 backdrop-blur-md hover:bg-white/10 text-white border border-white/10 rounded-xl p-3.5 focus:outline-none transition-all duration-300 flex justify-between items-center shadow-lg group"
                 >
                   <span className="font-medium tracking-wide">{genre || 'All Genres'}</span>
-                  <FaChevronDown className={`text-xs transition-transform duration-300 group-hover:text-primary ${isDropdownOpen ? 'rotate-180 text-primary' : 'text-gray-400'}`} />
+                  <FaChevronDown className={`text-xs transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-white' : 'text-gray-400 group-hover:text-white'}`} />
                 </button>
                 
                 {isDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-3 w-full glass border border-gray-600/50 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 overflow-hidden max-h-72 overflow-y-auto animate-fade-in">
+                  <div className="absolute top-full right-0 mt-2 w-full glass-panel rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 overflow-hidden max-h-72 overflow-y-auto animate-fade-in border border-white/10">
                     <div 
                       onClick={() => handleGenreChange('')}
                       className={`px-5 py-3.5 cursor-pointer border-b border-gray-700/30 transition-all duration-200 ${!genre ? 'bg-primary/20 text-primary font-bold' : 'text-gray-300 hover:bg-white/10 hover:text-white'}`}

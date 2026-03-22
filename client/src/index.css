@@ -11,21 +11,25 @@
   body {
     @apply bg-dark-100 text-white antialiased overflow-x-hidden;
     font-family: 'Outfit', sans-serif;
-    /* Ambient premium background */
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(229, 9, 20, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+    /* Ambient premium living background */
+    background: linear-gradient(-45deg, #0a0a0a, #1a0505, #050a1f, #0a0a0a);
+    background-size: 400% 400%;
+    animation: mesh 12s ease infinite;
     background-attachment: fixed;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)];
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)];
   }
   
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/5 shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:bg-white/10 transition-colors duration-300;
+    @apply bg-white/[0.02] backdrop-blur-lg border border-white/5 shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:bg-white/[0.04] transition-all duration-300;
+  }
+
+  .glass-panel {
+    @apply bg-black/40 backdrop-blur-2xl border-t border-white/10 shadow-[0_-8px_32px_rgba(0,0,0,0.6)];
   }
 
   .text-gradient {
@@ -54,13 +58,13 @@
 
 /* Dynamic Hover Animations */
 .hover-lift {
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease;
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(229, 9, 20, 0.3);
-  border-color: rgba(229, 9, 20, 0.4);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 40px rgba(229, 9, 20, 0.15);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .glow-on-hover {
